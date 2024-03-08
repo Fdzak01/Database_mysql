@@ -1,0 +1,112 @@
+SHOW DATABASES;(Melihat Database)
+
+MariaDB [(none)]> SHOW DATABASES;
+
+CREATE DATABASE ti09;(Membuat Table baru)
+
+USE ti09;(menggunakan database)
+
+SHOW TABLES;(untuk menunjukan isi table dalam Database)
+
+Membuat table
+CREATE TABLE jabatan(
+    -> id int primary key NOT NULL auto_increment,
+    -> nama varchar(30) NOT NULL unique);
+
+ DESC jabatan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(30) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+
+ CREATE TABLE pegawai(
+    -> id int NOT NULL primary key auto_increment,
+    -> nip varchar(20) NOT NULL unique,
+    -> nama varchar(30) NOT NULL,
+    -> tgl_lahir DATE NOT NULL,
+    -> email varchar(30),
+    -> no_hp varchar(30),
+    -> jabatan_id int NOT NULL REFERENCES jabatan(id));
+
+Microsoft Windows [Version 10.0.19045.4046]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\user>cd /xampp/mysql
+
+C:\xampp\mysql> cd bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 10
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> USE ti09
+Database changed
+MariaDB [ti09]> SHOW TABLES;
+Empty set (0.001 sec)
+
+MariaDB [ti09]> CREATE TABLE jabatan(
+    -> id int primary key NOT NULL auto_increment,
+    -> nama varchar(30) NOT NULL unique);
+Query OK, 0 rows affected (0.032 sec)
+
+MariaDB [ti09]> DESC jabatan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(30) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.010 sec)
+
+MariaDB [ti09]> CREATE TABLE pegawai(
+    -> id int NOT NULL primary key auto_increment,
+    -> nip varchar(20) NOT NULL unique,
+    -> nama varchar(30) NOT NULL,
+    -> tgl_lahir DATE NOT NULL,
+    -> email varchar(30),
+    -> no_hp varchar(30),
+    -> jabatan_id int NOT NULL REFERENCES jabatan(id));
+Query OK, 0 rows affected (0.020 sec)
+
+MariaDB [ti09]> DESC pegawai;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nip        | varchar(20) | NO   | UNI | NULL    |                |
+| nama       | varchar(30) | NO   |     | NULL    |                |
+| tgl_lahir  | date        | NO   |     | NULL    |                |
+| email      | varchar(30) | YES  |     | NULL    |                |
+| no_hp      | varchar(30) | YES  |     | NULL    |                |
+| jabatan_id | int(11)     | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+7 rows in set (0.012 sec)
+//Merubah atau memodifikasi data
+MariaDB [ti09]> ALTER TABLE pegawai
+    -> MODIFY nama varchar(50) NOT NULL;
+//Menghapus kolom atau data
+MariaDB [ti09]> ALTER TABLE pegawai
+    -> DROP COLUMN no_hp;
+Query OK, 0 rows affected (0.021 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ti09]> DESC pegawai;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nip        | varchar(20) | NO   | UNI | NULL    |                |
+| nama       | varchar(30) | NO   |     | NULL    |                |
+| tgl_lahir  | date        | NO   |     | NULL    |                |
+| email      | varchar(30) | YES  |     | NULL    |                |
+| jabatan_id | int(11)     | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.009 sec)
