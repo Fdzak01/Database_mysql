@@ -1,0 +1,152 @@
+Microsoft Windows [Version 10.0.19045.4170]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\user>cd \
+
+C:\>cd xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use TI09
+Database changed
+MariaDB [TI09]> SHOW tables;
++----------------+
+| Tables_in_ti09 |
++----------------+
+| jabatan        |
+| pegawai        |
++----------------+
+2 rows in set (0.001 sec)
+
+MariaDB [TI09]> SELECT * FROM jabatan;
+Empty set (0.015 sec)
+
+MariaDB [TI09]> INSERT INTO jabatan VALUES
+    -> ('','Manager'),
+    -> ('','Direktur'),
+    -> ('','Staff');
+Query OK, 3 rows affected, 3 warnings (0.009 sec)
+Records: 3  Duplicates: 0  Warnings: 3
+
+MariaDB [TI09]> select nama from jabatan;
++----------+
+| nama     |
++----------+
+| Direktur |
+| Manager  |
+| Staff    |
++----------+
+3 rows in set (0.001 sec)
+
+MariaDB [TI09]> SELECT * FROM jabatan;
++----+----------+
+| id | nama     |
++----+----------+
+|  2 | Direktur |
+|  1 | Manager  |
+|  3 | Staff    |
++----+----------+
+3 rows in set (0.000 sec)
+
+//Mengurutkan List ID dari Tertinggi ke Terendah
+MariaDB [TI09]> select * from jabatan
+    -> order by id asc;
++----+----------+
+| id | nama     |
++----+----------+
+|  1 | Manager  |
+|  2 | Direktur |
+|  3 | Staff    |
++----+----------+
+3 rows in set (0.001 sec)
+
+//Mengurutkan list Dari Terendah ke Tertinggi
+MariaDB [TI09]> select * from jabatan
+    -> order by id desc;
++----+----------+
+| id | nama     |
++----+----------+
+|  3 | Staff    |
+|  2 | Direktur |
+|  1 | Manager  |
++----+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [TI09]> select * from jabatan
+    -> order by nama asc;
++----+----------+
+| id | nama     |
++----+----------+
+|  2 | Direktur |
+|  1 | Manager  |
+|  3 | Staff    |
++----+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [TI09]> SELECT * FROM jabatan
+    -> ORDER BY id asc;
++----+----------+
+| id | nama     |
++----+----------+
+|  1 | Manager  |
+|  2 | Direktur |
+|  3 | Staff    |
++----+----------+
+3 rows in set (0.000 sec)
+
+MariaDB [TI09]> DESC pegawai;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nip        | varchar(20) | NO   | UNI | NULL    |                |
+| nama       | varchar(30) | NO   |     | NULL    |                |
+| tgl_lahir  | date        | NO   |     | NULL    |                |
+| email      | varchar(30) | YES  |     | NULL    |                |
+| jabatan_id | int(11)     | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.006 sec)
+
+MariaDB [TI09]> INSERT INTO pegawai (nip, nama, tgl_lahir, email, jabatan_id)
+    -> VALUES
+    -> ('2001', 'Budi', '1997-06-08','budi@gmail.com',2),
+    -> ('2002', 'Andi', '1997-06-08','andi@gmail.com',3);
+Query OK, 2 rows affected (0.004 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [TI09]> SELECT * FROM pegawai;
++----+------+------+------------+----------------+------------+
+| id | nip  | nama | tgl_lahir  | email          | jabatan_id |
++----+------+------+------------+----------------+------------+
+|  1 | 2001 | Budi | 1997-06-08 | budi@gmail.com |          2 |
+|  2 | 2002 | Andi | 1997-06-08 | andi@gmail.com |          3 |
++----+------+------+------------+----------------+------------+
+2 rows in set (0.000 sec)
+
+MariaDB [TI09]> INSERT INTO pegawai (nip, nama, tgl_lahir, email, jabatan_id)
+    -> VALUES
+    -> ('2005', 'Joko', '1987-05-03','Joko@gmail.com',2);
+Query OK, 1 row affected (0.009 sec)
+
+MariaDB [TI09]> UPDATE pegawai SET
+    -> nip ='2003' WHERE id = 2;
+Query OK, 1 row affected (0.009 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [TI09]> SELECT * FROM pegawai;
++----+------+----------------+------------+----------------+------------+
+| id | nip  | nama           | tgl_lahir  | email          | jabatan_id |
++----+------+----------------+------------+----------------+------------+
+|  1 | 2001 | Budi Sudarsono | 1997-06-08 | budi@gmail.com |          2 |
+|  2 | 2003 | Andi           | 1997-06-08 | andi@gmail.com |          3 |
+|  3 | 2005 | Joko           | 1987-05-03 | Joko@gmail.com |          2 |
++----+------+----------------+------------+----------------+------------+
+3 rows in set (0.000 sec)

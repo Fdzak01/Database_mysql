@@ -110,3 +110,5 @@ MariaDB [ti09]> DESC pegawai;
 | jabatan_id | int(11)     | NO   |     | NULL    |                |
 +------------+-------------+------+-----+---------+----------------+
 6 rows in set (0.009 sec)
+
+Alter
