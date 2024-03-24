@@ -2,7 +2,7 @@ SHOW DATABASES;(Melihat Database)
 
 MariaDB [(none)]> SHOW DATABASES;
 
-CREATE DATABASE ti09;(Membuat Table baru)
+CREATE DATABASE ti09;(Membuat Database baru)
 
 USE ti09;(menggunakan database)
 
